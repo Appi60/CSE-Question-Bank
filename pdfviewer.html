@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduVault PDF Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    .top-bar {
+      background-color: #0056b3;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      background: #003d80;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .top-bar a:hover {
+      background-color: #002b5c;
+    }
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
+
+    .error {
+      padding: 40px;
+      text-align: center;
+      font-size: 20px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <span>EduVault - PDF Viewer</span>
+    <a href="secondyear.html">← Back to Second Year</a>
+  </div>
+
+  <iframe id="pdfFrame" src=""></iframe>
+
+  <div id="error" class="error" style="display: none;">
+    PDF file not found or not specified.
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const pdfFile = params.get("file");
+
+    if (pdfFile) {
+      document.getElementById("pdfFrame").src = pdfFile;
+    } else {
+      document.getElementById("pdfFrame").style.display = "none";
+      document.getElementById("error").style.display = "block";
+    }
+  </script>
+</body>
+</html>

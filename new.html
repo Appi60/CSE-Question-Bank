@@ -1,0 +1,165 @@
+<?php
+session_start();
+if(!isset($_SESSION['user_id'])){
+  header("Location:login.php");
+  exit();
+}
+
+echo"Welcome, " .$_SESSION['user_name'] ."!";
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduVault - CSE Branch</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #f0f0f0; }
+    header { background-color: #0056b3; color: white; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .logo { font-size: 28px; font-weight: bold; letter-spacing: 1px; }
+    nav a { color: white; text-decoration: none; margin-left: 25px; font-size: 18px; transition: color 0.3s; }
+    nav a:hover { color: #ffd700; }
+    main { text-align: center; padding: 60px 20px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-radius: 10px; margin: 40px auto; width: 80%; }
+    h1 { font-size: 36px; margin-bottom: 30px; color: #333333; }
+    .year-buttons { display: flex; justify-content: center; gap: 25px; margin-top: 30px; flex-wrap: wrap; }
+    .btn { padding: 18px 35px; background-color: #0056b3; color: white; text-decoration: none; border-radius: 8px; font-size: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s; }
+    .btn:hover { background-color: #003d80; }
+    .search-container { margin-top: 20px; }
+    input[type="text"] { width: 50%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
+    .search-results { margin-top: 20px; text-align: left; display: none; }
+    .search-results ul { list-style-type: none; padding: 0; }
+    .search-results li { background: #e0e0e0; margin: 8px 0; padding: 12px; border-radius: 5px; }
+    .pdf-links { margin-top: 10px; }
+    .pdf-links a { display: block; color: #0056b3; text-decoration: none; margin-top: 5px; }
+    .pdf-links a.download-btn { color: #d9534f; font-weight: bold; }
+    footer { background-color: #0056b3; color: white; text-align: center; padding: 20px; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">EduVault</div>
+    <nav>
+      <a href="syllabus.html">Syllabus</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Welcome to the CSE Branch Resource Hub</h1>
+    <p>Access previous year question papers organized by year and semester to enhance your exam preparation.</p>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search by Year, Semester, or Subject..." onkeyup="searchSubjects()" />
+    </div>
+
+    <div class="search-results" id="searchResults">
+      <ul id="resultsList"></ul>
+    </div>
+
+    <div class="year-buttons">
+      <a class="btn" href="secondyear.html">Explore Second Year</a>
+      <a class="btn" href="thirdyear.html">Explore Third Year</a>
+    </div>
+
+    <div id="subjects-container" class="search-results"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 EduVault | Designed for easy access to past question papers</p>
+  </footer>
+
+  <script>
+    const subjectsData = {
+      "Second Year": {
+        "3rd": {
+          "Internet Of Thing": ["3rd sem pdf/IOT 1.pdf", "3rd sem pdf/IOT 2.pdf"],
+        "Data Communication": ["3rd sem pdf/DC 1.pdf", "3rd sem pdf/DC 2.pdf"],
+        "Operating Systems": ["3rd sem pdf/OS 1.pdf", "3rd sem pdf/OS 2.pdf"],
+        "Programming In C": ["3rd sem pdf/PIC 1.pdf", "3rd sem pdf/PIC 2.pdf"],
+        "Digital Techniques": ["3rd sem pdf/DT 1.pdf", "3rd sem pdf/DT 2.pdf"]
+        },
+        "4th": {
+        "Data Structure Using C": ["4th sem pdf/DSUC 4th.pdf", "dsc2.pdf"],
+        "Computer System Organization and Architecture": ["4th sem pdf/CSOA 4th.pdf", "csoa2.pdf"],
+        "Computer Network And Security": ["4th sem pdf/CNS 4th.pdf", "cns2.pdf"],
+        "Relational Database Management System": ["4th sem pdf/RDBMS 4th.pdf", "rdbms2.pdf"],
+        "Object Oriented Concepts": ["4th sem pdf/OOC 4th.pdf", "ooc2.pdf"],
+        "Internet And Web Technology": ["4th sem pdf/IWT 4th.pdf", "iwt2.pdf"]
+        
+        }
+      },
+      "Third Year": {
+        "5th": {
+          "Java Programming": ["java1.pdf", "java2.pdf"],
+          "Software Engineering": ["se1.pdf", "se2.pdf"],
+          "Computer Hardware And Servicing": ["chs1.pdf", "chs2.pdf"],
+          "Android Application Development": ["aad1.pdf", "aad2.pdf"]
+        },
+        "6th": {
+          "Concept of .Net Technology": ["dotnet1.pdf", "dotnet2.pdf"],
+          "Multimedia System": ["ms1.pdf", "ms2.pdf"],
+          "Data Mining And Warehousing": ["dmw1.pdf", "dmw2.pdf"],
+          "Open Source Technology": ["ost1.pdf", "ost2.pdf"],
+          "Employable Skills": ["es1.pdf", "es2.pdf"]
+        }
+      }
+    };
+
+    function searchSubjects() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const resultsContainer = document.getElementById("subjects-container");
+      resultsContainer.innerHTML = "";
+
+      if (query === "") {
+        resultsContainer.style.display = "none";
+        return;
+      }
+
+      let resultsFound = false;
+
+      for (let year in subjectsData) {
+        for (let semester in subjectsData[year]) {
+          for (let subject in subjectsData[year][semester]) {
+            if (
+              year.toLowerCase().includes(query) ||
+              semester.toLowerCase().includes(query) ||
+              subject.toLowerCase().includes(query)
+            ) {
+              resultsFound = true;
+
+              const section = document.createElement("div");
+              section.innerHTML = `<h2>${year} - ${semester} Semester - ${subject}</h2>`;
+
+              const pdfDiv = document.createElement("div");
+              pdfDiv.classList.add("pdf-links");
+
+              subjectsData[year][semester][subject].forEach(pdf => {
+                const link = document.createElement("a");
+                link.href = pdf;
+                link.textContent = pdf;
+                link.target = "_blank";
+
+                const downloadLink = document.createElement("a");
+                downloadLink.href = pdf;
+                downloadLink.textContent = "Download";
+                downloadLink.classList.add("download-btn");
+                downloadLink.download = pdf;
+
+                pdfDiv.appendChild(link);
+                pdfDiv.appendChild(downloadLink);
+              });
+
+              section.appendChild(pdfDiv);
+              resultsContainer.appendChild(section);
+            }
+          }
+        }
+      }
+
+      resultsContainer.style.display = resultsFound ? "block" : "none";
+    }
+  </script>
+</body>
+</html>

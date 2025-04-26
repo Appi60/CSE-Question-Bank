@@ -1,0 +1,137 @@
+<?php
+session_start();
+
+// Initialize error array
+$errors = [];
+
+// Database connection setup
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "user_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check for connection errors
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user input and sanitize
+    $phone_number = filter_var(trim($_POST['phone_number']), FILTER_SANITIZE_STRING);
+    $password = $_POST['password'];
+
+    // Validate input
+    if (empty($phone_number) || empty($password)) {
+        $errors[] = "Both fields are required.";
+    } else {
+        // Check if phone number exists
+        $stmt = $conn->prepare("SELECT * FROM users WHERE phone_number = ?");
+        $stmt->bind_param("s", $phone_number);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        // If the user exists, verify the password
+        if ($user) {
+            // Use password_verify() to check the hashed password
+            if (password_verify($password, $user['password'])) {
+                // Set session variables on successful login
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['full_name'];
+
+                // Redirect to the dashboard page
+                header("Location: dashboard.php");
+                exit();
+            } else {
+                // Incorrect password
+                $errors[] = "Incorrect password.";
+            }
+        } else {
+            // Phone number not found
+            $errors[] = "Phone number not registered.";
+        }
+        $stmt->close();
+    }
+}
+
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(40, 78, 183);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .warning {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login Form</h2>
+
+    <!-- Display any errors -->
+    <?php if (!empty($errors)): ?>
+        <div class="warning">
+            <ul>
+                <?php foreach ($errors as $error): ?>
+                    <li><?php echo htmlspecialchars($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <!-- Login form -->
+    <form action="login.php" method="POST">
+        <input type="text" name="phone_number" placeholder="Phone Number" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="register.php">Register here</a></p>
+</div>
+
+</body>
+</html>

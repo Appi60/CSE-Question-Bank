@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduVault - Second Year</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #f0f0f0; }
+    header { background-color: #0056b3; color: white; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .logo { font-size: 28px; font-weight: bold; letter-spacing: 1px; }
+    .back-btn { color: white; text-decoration: none; font-size: 18px; padding: 10px 20px; background-color: #003d80; border-radius: 5px; transition: background-color 0.3s; }
+    .back-btn:hover { background-color: #002b5c; }
+    main { text-align: center; padding: 60px 20px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-radius: 10px; margin: 40px auto; width: 80%; }
+    h1 { font-size: 36px; margin-bottom: 30px; color: #333333; }
+    .semester-buttons { display: flex; justify-content: center; gap: 25px; margin-top: 30px; flex-wrap: wrap; }
+    .btn { padding: 18px 35px; background-color: #0056b3; color: white; text-decoration: none; border-radius: 8px; font-size: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s; cursor: pointer; border: none; }
+    .btn:hover { background-color: #003d80; }
+    .subjects { display: none; margin-top: 30px; text-align: left; }
+    .subjects ul { list-style-type: none; padding: 0; }
+    .subjects li { background: #e0e0e0; margin: 8px 0; padding: 12px; border-radius: 5px; }
+    .pdf-links { margin-top: 10px; }
+    .pdf-links a { display: block; color: #0056b3; text-decoration: none; margin-top: 5px; }
+    .pdf-links a.download-btn { color: #d9534f; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">EduVault</div>
+    <a href="new.html" class="back-btn">Back</a>
+  </header>
+
+  <main>
+    <h1>Second Year - Choose Your Semester</h1>
+    <div class="semester-buttons">
+      <button class="btn" onclick="showSubjects('third')">3rd Semester</button>
+      <button class="btn" onclick="showSubjects('fourth')">4th Semester</button>
+    </div>
+
+    <div id="third" class="subjects">
+      <h2>3rd Semester Subjects</h2>
+      <ul id="third-subjects"></ul>
+    </div>
+
+    <div id="fourth" class="subjects">
+      <h2>4th Semester Subjects</h2>
+      <ul id="fourth-subjects"></ul>
+    </div>
+  </main>
+
+  <footer style="background-color: #0056b3; color: white; text-align: center; padding: 20px;">
+    <p>&copy; 2025 EduVault | Designed for easy access to past question papers</p>
+  </footer>
+  
+
+  <!-- <script>
+    const subjects = {
+      third: {
+        "Internet Of Thing": ["3rd sem pdf/IOT 1.pdf", "3rd sem pdf/IOT 2.pdf"],
+        "Data Communication": ["3rd sem pdf/DC 1.pdf", "3rd sem pdf/DC 2.pdf"],
+        "Operating Systems": ["3rd sem pdf/OS 1.pdf", "3rd sem pdf/OS 2.pdf"],
+        "Programming In C": ["3rd sem pdf/PIC 1.pdf", "3rd sem pdf/PIC 2.pdf"],
+        "Digital Techniques": ["3rd sem pdf/DT 1.pdf", "3rd sem pdf/DT 2.pdf"]
+      },
+      fourth: {
+        "Data Structure Using C": ["4th sem pdf/DSUC 4th.pdf", "4th sem pdf/DSUC.pdf"],
+        "Computer System Organization and Architecture": ["4th sem pdf/CSOA 4th.pdf", "4th sem pdf/CSOA 4th.pdf"],
+        "Computer Network And Security": ["4th sem pdf/CNS 4th.pdf", "4th sem pdf/computer network and security .pdf"],
+        "Relational Database Management System": ["4th sem pdf/RDBMS 4th.pdf", "4th sem pdf/RDBMS 4th.pdf"],
+        "Object Oriented Concepts": ["4th sem pdf/OOC 4th.pdf", "4th sem pdf/Ooc.pdf"],
+        "Internet And Web Technology": ["4th sem pdf/IWT 4th.pdf", "4th sem pdf/Internet and web technology .pdf"]
+      }
+    };
+
+    function showSubjects(semester) {
+      document.getElementById('third').style.display = 'none';
+      document.getElementById('fourth').style.display = 'none';
+      
+      const subjectList = document.getElementById(`${semester}-subjects`);
+      subjectList.innerHTML = "";
+      
+      for (let subject in subjects[semester]) {
+        let li = document.createElement("li");
+        li.textContent = subject;
+        
+        let pdfDiv = document.createElement("div");
+        pdfDiv.classList.add("pdf-links");
+        subjects[semester][subject].forEach(pdf => {
+          let link = document.createElement("a");
+          link.href = pdf;
+          link.textContent = pdf;
+          link.target = "_blank";
+          
+          let downloadLink = document.createElement("a");
+          downloadLink.href = pdf;
+          downloadLink.textContent = "Download";
+          downloadLink.classList.add("download-btn");
+          downloadLink.download = pdf;
+          
+          pdfDiv.appendChild(link);
+          pdfDiv.appendChild(downloadLink);
+        });
+        
+        li.appendChild(pdfDiv);
+        subjectList.appendChild(li);
+      }
+      
+      document.getElementById(semester).style.display = 'block';
+    }
+  </script>
+</body>
+</html> -->
+<script>
+  const subjects = {
+    third: {
+      "Internet Of Thing": ["3rd sem pdf/IOT 1.pdf", "3rd sem pdf/IOT 2.pdf"],
+      "Data Communication": ["3rd sem pdf/DC 1.pdf", "3rd sem pdf/DC 2.pdf"],
+      "Operating Systems": ["3rd sem pdf/OS 1.pdf", "3rd sem pdf/OS 2.pdf"],
+      "Programming In C": ["3rd sem pdf/PIC 1.pdf", "3rd sem pdf/PIC 2.pdf"],
+      "Digital Techniques": ["3rd sem pdf/DT 1.pdf", "3rd sem pdf/DT 2.pdf"]
+    },
+    fourth: {
+      "Data Structure Using C": ["4th sem pdf/DSUC 4th.pdf", "4th sem pdf/DSUC.pdf"],
+      "Computer System Organization and Architecture": ["4th sem pdf/CSOA 4th.pdf", "4th sem pdf/CSOA 4th.pdf"],
+      "Computer Network And Security": ["4th sem pdf/CNS 4th.pdf", "4th sem pdf/computer network and security .pdf"],
+      "Relational Database Management System": ["4th sem pdf/RDBMS 4th.pdf", "4th sem pdf/RDBMS 4th.pdf"],
+      "Object Oriented Concepts": ["4th sem pdf/OOC 4th.pdf", "4th sem pdf/Ooc.pdf"],
+      "Internet And Web Technology": ["4th sem pdf/IWT 4th.pdf", "4th sem pdf/Internet and web technology .pdf"]
+    }
+  };
+
+  function showSubjects(semester) {
+    document.getElementById('third').style.display = 'none';
+    document.getElementById('fourth').style.display = 'none';
+
+    const subjectList = document.getElementById(`${semester}-subjects`);
+    subjectList.innerHTML = "";
+
+    for (let subject in subjects[semester]) {
+      let li = document.createElement("li");
+      li.textContent = subject;
+
+      let pdfDiv = document.createElement("div");
+      pdfDiv.classList.add("pdf-links");
+
+      subjects[semester][subject].forEach(pdf => {
+        let viewerURL = `pdfviewer.html?file=${encodeURIComponent(pdf)}`;
+
+        let link = document.createElement("a");
+        link.href = viewerURL;
+        link.textContent = "View PDF";
+        link.target = "_blank";
+
+        let downloadLink = document.createElement("a");
+        downloadLink.href = pdf;
+        downloadLink.textContent = "Download";
+        downloadLink.classList.add("download-btn");
+        downloadLink.download = pdf;
+
+        pdfDiv.appendChild(link);
+        pdfDiv.appendChild(downloadLink);
+      });
+
+      li.appendChild(pdfDiv);
+      subjectList.appendChild(li);
+    }
+
+    document.getElementById(semester).style.display = 'block';
+  }
+</script>
+
+

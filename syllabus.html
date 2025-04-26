@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduVault - Semester Syllabus</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: #0056b3;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .navbar .title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .navbar .back-btn {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .navbar .back-btn:hover {
+      color: #ffc107;
+    }
+
+    .container {
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .semesters {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .semester {
+      background: #f1f1f1;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      width: 22%;
+      text-align: center;
+    }
+
+    .semester:hover {
+      transform: translateY(-10px);
+    }
+
+    .semester h2 {
+      color: #0056b3;
+      margin-bottom: 15px;
+    }
+
+    .semester a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0056b3;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: 0.3s;
+      margin: 5px;
+    }
+
+    .semester a:hover {
+      background: #ffc107;
+    }
+
+    footer {
+      background-color: #0056b3;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <span class="title">EduVault - Semester Syllabus</span>
+  <a href="new.html" class="back-btn">Back</a>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+  <h1>Semester Syllabus</h1>
+  <div class="semesters">
+    <div class="semester">
+      <h2>3rd Semester</h2>
+      <a href="pdfviewer2.html?file=Syllabus%20pdf/CSE%20%203RD%20%20SEM.pdf">View</a>
+
+    </div>
+    <div class="semester">
+      <h2>4th Semester</h2>
+      <a href="pdfviewer2.html?file=Syllabus%20pdf/CSE%204TH%20SEM.pdf">View</a>
+    </div>
+    <div class="semester">
+      <h2>5th Semester</h2>
+      <a href="pdfviewer2.html?file=Syllabus%20pdf/CSE%205TH%20SEM.pdf">View</a>
+    </div>
+    <div class="semester">
+      <h2>6th Semester</h2>
+      <a href="pdfviewer2.html?file=Syllabus%20pdf/6th%20sem%20syllabus.pdf">View</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2025 EduVault | Designed for easy access to past question papers
+</footer>
+
+</body>
+</html>
+
+

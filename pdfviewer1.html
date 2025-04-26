@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View PDF - EduVault</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .top-bar {
+      background-color: #0056b3;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .back-btn {
+      background-color: #003d80;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background-color: #002b5c;
+    }
+
+    iframe {
+      flex-grow: 1;
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="logo">EduVault PDF Viewer</div>
+    <a href="thirdyear.html" class="back-btn">Back</a>
+  </div>
+
+  <iframe id="pdf-frame" src=""></iframe>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const file = urlParams.get("file");
+
+    if (file) {
+      document.getElementById("pdf-frame").src = file;
+    } else {
+      document.getElementById("pdf-frame").srcdoc = "<p style='text-align:center; font-size:18px;'>No PDF file specified.</p>";
+    }
+  </script>
+</body>
+</html>
